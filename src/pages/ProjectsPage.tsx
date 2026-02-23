@@ -3,7 +3,6 @@ import ProjectCard from "@components/ProjectCard.tsx";
 import "@styles/Pages/ProjectsPage.css";
 import { motion, useInView } from "framer-motion";
 import projectData from "@data/projects.json";
-import popularTags from "@data/popularTags.json";
 
 const PROJECTS_PER_PAGE = 8;
 
@@ -262,26 +261,6 @@ const ProjectsPage: React.FC = () => {
                 </div>
 
                 <div className="tagDropdownScroll">
-                  {!tagSearchQuery && (
-                    <>
-                      <div className="tagSectionLabel">POPULAR</div>
-                      <div className="tagList">
-                        {popularTags.map((tag) => (
-                          <label key={tag} className="tagCheckboxLabel">
-                            <input
-                              type="checkbox"
-                              checked={selectedTags.includes(tag)}
-                              onChange={() => toggleTag(tag)}
-                              className="tagCheckbox"
-                            />
-                            <span className="tagCheckboxText">{tag}</span>
-                          </label>
-                        ))}
-                      </div>
-                      <div className="tagDivider"></div>
-                    </>
-                  )}
-
                   <div className="tagSectionLabel">
                     ALL TAGS ({filteredTagsForDropdown.length})
                   </div>
@@ -415,8 +394,8 @@ const ProjectsPage: React.FC = () => {
                       videoSrc={project.videoSrc}
                       videoCDN={project.videoCDN}
                       createdDate={project.createdDate}
-                      status={project.status}
                       languages={project.languages}
+                      url={project.url}
                     />
                   </motion.div>
                 ))}

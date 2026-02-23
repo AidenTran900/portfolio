@@ -5,19 +5,5 @@
     "PathName": "rollback_netcode",
     "Description": "Deep dive into implementing rollback netcode for real-time multiplayer games with deterministic simulation.",
     "Tags": ["Networking", "Game Development", "Technical"]
-  },
-  {
-    "Name": "Test Article 2",
-    "Path": "/blogs/test2.md",
-    "PathName": "test2",
-    "Description": "A test article for demonstrating the blog system functionality.",
-    "Tags": ["Tutorial", "Testing"]
-  },
-  {
-    "Name": "Test Article",
-    "Path": "/blogs/test.md",
-    "PathName": "test",
-    "Description": "Another test article for the blog system.",
-    "Tags": ["Tutorial"]
   }
 ]

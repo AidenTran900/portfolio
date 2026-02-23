@@ -7,10 +7,10 @@ interface ProjectCardProps {
   title: string;
   videoSrc?: string;
   videoCDN?: string;
-  status: string;
   createdDate: number;
   description: string;
   languages: { text: string; imagePath?: string }[];
+  url?: string;
 }
 
 // Shared IntersectionObserver instance for all video elements
@@ -46,9 +46,9 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({
   videoSrc,
   videoCDN,
   languages,
-  status,
   createdDate,
   description,
+  url,
 }) => {
   const finalVideoSrc = useMemo(() => {
     const isProduction = window.location.hostname !== "localhost";
@@ -92,7 +92,6 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({
       <h1 className="projectCardTitle">
         {title} <span className="projectCard-date">({createdDate})</span>
       </h1>
-      <h2 className="projectCardStatus">{status}</h2>
       <div className="projectCardSectionDivider" />
       <p className="projectCardDescription">{description}</p>
       <div className="projectCardSectionDivider" />
@@ -107,6 +106,14 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({
           />
         ))}
       </ul>
+      {url && (
+        <button 
+          className="projectCardButton"
+          onClick={() => window.open(url, '_blank')}
+        >
+          View Project
+        </button>
+      )}
     </div>
   );
 });

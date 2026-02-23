@@ -1,96 +1,115 @@
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "@components/ProjectCard.tsx";
 import "@styles/Components/HomePage/Projects.css";
 import { motion, useInView } from "framer-motion";
 import projectData from "@data/projects.json"
 
-const TOP_PROJECTS_COUNT = 4;
+const TOP_PROJECTS_COUNT = 5;
+const SCROLL_SPEED = 1.5;
 
 const Projects: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [numColumns, setNumColumns] = useState(2);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1024) {
-        setNumColumns(1);
-      } else {
-        setNumColumns(2);
-      }
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [selectedIndex] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+  const offsetRef = useRef(0);
+  const rafRef = useRef<number>(0);
+  const setWidthRef = useRef(0);
 
   const topProjects = useMemo(() => {
     return projectData.slice(0, TOP_PROJECTS_COUNT);
   }, []);
 
-  const columns = useMemo(() => {
-    const newColumns: typeof projectData[] = Array.from(
-      { length: numColumns },
-      () => []
-    );
+  const isInView = useInView(wrapperRef, { once: true, amount: 0.2 });
 
-    topProjects.forEach((project, index) => {
-      newColumns[index % numColumns].push(project);
-    });
+  const duplicatedProjects = [...topProjects, ...topProjects, ...topProjects];
 
-    return newColumns;
-  }, [topProjects, numColumns]);
+  useEffect(() => {
+    if (isInView && !hasEntered) {
+      const timer = setTimeout(() => setHasEntered(true), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, hasEntered]);
 
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || track.children.length < TOP_PROJECTS_COUNT + 1) return;
 
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+    const measure = () => {
+      const first = track.children[0] as HTMLElement;
+      const nth = track.children[TOP_PROJECTS_COUNT] as HTMLElement;
+      setWidthRef.current = nth.offsetLeft - first.offsetLeft;
+    };
 
-  const container = useMemo(() => ({
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0,
-        staggerChildren: 0.12,
-      },
-    },
-  }), []);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [topProjects]);
 
-  const item = useMemo(() => ({
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: [0.175, 0.885, 0.32, 1.275],
-      },
-    },
-  }), []);
+  useEffect(() => {
+    if (!isInView) return;
+
+    const tick = () => {
+      if (selectedIndex === null) {
+        offsetRef.current += SCROLL_SPEED;
+
+        const setWidth = setWidthRef.current;
+        if (setWidth > 0 && offsetRef.current >= setWidth) {
+          offsetRef.current -= setWidth;
+        }
+      }
+
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translateX(-${offsetRef.current}px)`;
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isInView, selectedIndex, isHovered]);
+
 
   return (
-    <div className="projectsWrapper" ref={containerRef}>
-      <motion.div className="projectsContainer" variants={container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
-        {columns.map((columnProjects, colIndex) => (
-          <div className="project-column" key={colIndex}>
-            {columnProjects.map((project) => (
-              <motion.div key={project.title} variants={item}>
-                <ProjectCard
-                  title={project.title}
-                  description={project.description}
-                  videoSrc={project.videoSrc}
-                  videoCDN={project.videoCDN}
-                  createdDate={project.createdDate}
-                  status={project.status}
-                  languages={project.languages}
-                />
-              </motion.div>
-            ))}
-          </div>
-        ))}
-      </motion.div>
+    <div className="projectsWrapper" ref={wrapperRef}>
+      <div
+        className="projectsScrollContainer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="projectsTrack" ref={trackRef}>
+          {duplicatedProjects.map((project, i) => (
+            <motion.div
+              className="projectsTrackItem"
+              key={`${project.title}-${i}`}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              animate={isInView ? {
+                opacity: 1,
+                y: 0,
+                scale: selectedIndex === i ? 1.08 : 1,
+              } : undefined}
+              transition={{
+                duration: 0.35,
+                ease: [0.175, 0.885, 0.32, 1.275],
+                delay: !hasEntered ? (i % TOP_PROJECTS_COUNT) * 0.12 : 0,
+              }}
+            >
+              <ProjectCard
+                title={project.title}
+                description={project.description}
+                videoSrc={project.videoSrc}
+                videoCDN={project.videoCDN}
+                createdDate={project.createdDate}
+                languages={project.languages}
+                url={project.url}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
       <div className="seeMoreContainer">
         <Link to="/projects" className="seeMoreButton bevelContainer">
