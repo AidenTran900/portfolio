@@ -1,5 +1,3 @@
-# Rollback Netcode: My Insights
-
 ## 1. What Is Netcode?
 "Netcode" is a term gamers use to talk about how online games handle connections between players. When things go wrong like lag, random game jumps, or actions not showing up properly, players often blame the netcode. While these problems can be caused by bad coding, they’re usually due to network issues like high ping, packet loss or internet slowdowns. Problems with a player’s computer like low frame rates can also mess things up. Good netcode helps hide these issues and keeps the game running smoothly for everyone.
 

@@ -27,7 +27,10 @@ function PersistentHeroBg() {
   return (
     <motion.div
       aria-hidden
-      animate={{ height: isHome ? '96vh' : 280, filter: isHome ? 'blur(0px)' : 'blur(6px)' }}
+      animate={{
+        height: isHome ? '96vh' : 100,
+        filter: isHome ? 'blur(0px)' : 'blur(30px)',
+      }}
       transition={{ type: 'spring', stiffness: 120, damping: 28 }}
       style={{
         position: 'absolute',
@@ -40,10 +43,10 @@ function PersistentHeroBg() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        WebkitMaskImage: mask,
-        WebkitMaskComposite: 'source-in',
-        maskImage: mask,
-        maskComposite: 'intersect',
+        WebkitMaskImage: isHome ? mask : undefined,
+        WebkitMaskComposite: isHome ? 'source-in' : undefined,
+        maskImage: isHome ? mask : undefined,
+        maskComposite: isHome ? 'intersect' : undefined,
       }}
     />
   )

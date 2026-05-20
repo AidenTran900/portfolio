@@ -19,7 +19,7 @@ export function Footer() {
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-[var(--color-ink)] transition-colors cursor-pointer">LinkedIn</a>
             <a href={`mailto:${profile.email}`} className="hover:text-[var(--color-ink)] transition-colors cursor-pointer">Email</a>
           </div>
-          <p className="text-xs text-[var(--color-muted)]">© {new Date().getFullYear()} Aiden Tran · Built with React, Three.js, Framer Motion</p>
+          <p className="text-xs text-[var(--color-muted)]">© {new Date().getFullYear()} Aiden Tran</p>
         </div>
       </div>
     </footer>

@@ -5,6 +5,16 @@ import { createPortal } from 'react-dom'
 const SPRING = { stiffness: 360, damping: 26, mass: 0.5 }
 
 export function CustomCursor() {
+  const [isTouch, setIsTouch] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: coarse)')
+    setIsTouch(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsTouch(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
   const mouseX = useMotionValue(-300)
   const mouseY = useMotionValue(-300)
   const springX = useSpring(mouseX, SPRING)
@@ -81,7 +91,7 @@ export function CustomCursor() {
     }
   }, [label, isHover])
 
-  if (typeof document === 'undefined') return null
+  if (typeof document === 'undefined' || isTouch) return null
 
   return createPortal(
     <div aria-hidden className="pointer-events-none select-none">

@@ -168,7 +168,7 @@ export default function Gallery() {
             layoutId="page-title"
             layout="preserve-aspect"
             transition={{ type: 'spring', stiffness: 230, damping: 30, mass: 0.9 }}
-            className="morph-opaque col-span-12 md:col-span-8 font-display font-normal uppercase tracking-[-0.01em] leading-[0.95] text-[clamp(2.2rem,6vw,5rem)] text-[var(--color-ink)]"
+            className="morph-opaque col-span-12 md:col-span-8 font-display font-normal uppercase tracking-[-0.01em] leading-[0.95] text-[clamp(3.5rem,7vw,5rem)] text-[var(--color-ink)]"
           >
             For the
             <br />

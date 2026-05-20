@@ -1,7 +1,77 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import type { Project } from '@/data/projects'
+
+const MAX_VISIBLE_TAGS = 3
+
+function TagsRow({ stack }: { stack: string[] }) {
+  const [open, setOpen] = useState(false)
+  const popoverRef = useRef<HTMLDivElement>(null)
+  const visible = stack.slice(0, MAX_VISIBLE_TAGS)
+  const hidden = stack.slice(MAX_VISIBLE_TAGS)
+
+  useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
+  return (
+    <div className="flex items-center gap-x-4 flex-nowrap">
+      {visible.map((s) => (
+        <span
+          key={s}
+          className="font-display text-xs font-medium tracking-[0.12em] uppercase text-[var(--color-muted)] shrink-0"
+        >
+          {s}
+        </span>
+      ))}
+
+      {hidden.length > 0 && (
+        <div className="relative shrink-0" ref={popoverRef}>
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setOpen((v) => !v)
+            }}
+            className="font-display text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
+            aria-label={`Show ${hidden.length} more tags`}
+          >
+            +{hidden.length}
+          </button>
+
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ opacity: 0, y: 4, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 4, scale: 0.96 }}
+                transition={{ duration: 0.15 }}
+                className="absolute bottom-full left-0 mb-2.5 z-50 bg-[var(--color-cream)] border border-[var(--color-rule)] rounded shadow-md px-3 py-2.5 flex flex-col gap-2 min-w-max"
+              >
+                {hidden.map((s) => (
+                  <span
+                    key={s}
+                    className="font-display text-xs font-medium tracking-[0.12em] uppercase text-[var(--color-muted)] whitespace-nowrap"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+    </div>
+  )
+}
 
 const ioOptions: IntersectionObserverInit = { threshold: 0.25, rootMargin: '120px' }
 
@@ -114,18 +184,13 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           </div>
         </div>
 
-        {/* Stack tags + view affordance */}
-        <div className="mt-4 flex items-center justify-between gap-4">
-          <div className="flex flex-wrap gap-x-4 gap-y-1">
-            {project.stack.map((s) => (
-              <span
-                key={s}
-                className="font-display text-xs font-medium tracking-[0.12em] uppercase text-[var(--color-muted)]"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+        {/* Stack tags — own row, no wrap, overflow as +N chip */}
+        <div className="mt-4">
+          <TagsRow stack={project.stack} />
+        </div>
+
+        {/* View affordance */}
+        <div className="mt-3 flex justify-end">
           <span className="font-display text-xs font-semibold tracking-[0.18em] uppercase text-[var(--color-muted)] shrink-0 inline-flex items-center gap-2 transition-colors group-hover:text-[var(--color-ink)]">
             View case
             <span className="transition-transform group-hover:translate-x-1">→</span>
