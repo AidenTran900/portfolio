@@ -84,7 +84,7 @@ export function About() {
             <div
               data-cursor="Self Reflection · 2025"
               className="w-full aspect-[4/5] bg-cover bg-center"
-              style={{ backgroundImage: `url('${resolveImageUrl('/images/gallery/SelfReflection.webp')}')` }}
+              style={{ backgroundImage: `url('${resolveImageUrl('/images/gallery/SelfReflection.v1.webp')}')` }}
               aria-hidden
             />
             <figcaption className="mt-3 flex items-baseline justify-between gap-4 border-t border-[var(--color-ink)] pt-2">

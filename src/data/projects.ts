@@ -29,7 +29,7 @@ export const projects: Project[] = [
     type: 'Machine Learning · Systems',
     stack: ['C++', 'Python', 'CMake'],
     url: 'https://github.com/AidenTran900/CPPyML',
-    videoCDN: 'https://assets.aidentran.dev/LLMDemoShort.mp4',
+    videoCDN: 'https://assets.aidentran.dev/Videos/LLMDemoShort.v1.webm',
     featured: true,
     highlights: [
       'Custom n-d tensor + reverse-mode autograd',
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     team: 2,
     type: 'Game Development · Realtime Networking',
     stack: ['Roblox', 'Lua', 'Rojo', 'React-Lua'],
-    videoCDN: 'https://assets.aidentran.dev/ChromaClash.mp4',
+    videoCDN: 'https://assets.aidentran.dev/Videos/ChromaClash.v1.webm',
     featured: true,
     highlights: [
       'Deterministic simulation with frame-accurate state',
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     type: 'Systems · Simulation',
     stack: ['C++', 'ImGui', 'PortAudio'],
     url: 'https://github.com/AidenTran900/NoteDetector',
-    videoCDN: 'https://assets.aidentran.dev/SpectrumAnalyzer.mp4',
+    videoCDN: 'https://assets.aidentran.dev/Videos/SpectrumAnalyzer.v1.webm',
     featured: true,
     highlights: [
       'Hand-rolled radix-2 Cooley–Tukey FFT',
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     type: 'Simulation · Scientific',
     stack: ['Python', 'Matplotlib', 'Pandas'],
     url: 'https://github.com/AidenTran900/Black-Hole-Analyzer',
-    videoCDN: 'https://assets.aidentran.dev/BlackHoleAnalyzer.mp4',
+    videoCDN: 'https://assets.aidentran.dev/Videos/BlackHoleAnalyzer.v1.webm',
     featured: true,
     highlights: [
       'Schwarzschild metric for time dilation',
@@ -159,7 +159,7 @@ export const projects: Project[] = [
     team: 1,
     type: 'Game Development',
     stack: ['Roblox', 'Lua'],
-    videoCDN: 'https://assets.aidentran.dev/Pwnage.mp4',
+    videoCDN: 'https://assets.aidentran.dev/Videos/Pwnage.v1.webm',
   },
   {
     slug: 'those-who-chop',
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     team: 1,
     type: 'Game Development · Hackathon',
     stack: ['Roblox', 'Lua'],
-    videoCDN: 'https://assets.aidentran.dev/ThoseWhoChop.mp4',
+    videoCDN: 'https://assets.aidentran.dev/Videos/ThoseWhoChop.v1.webm',
   },
   {
     slug: 'forums',

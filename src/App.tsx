@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { resolveImageUrl } from '@/utils/imageUrl'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, LayoutGroup, motion, useScroll, useTransform } from 'framer-motion'
 import { Nav } from '@/components/Nav'
@@ -35,7 +36,7 @@ function PersistentHeroBg() {
         right: 0,
         zIndex: 0,
         y: bgY,
-        backgroundImage: 'url(/hero/bg.jpg)',
+        backgroundImage: `url(${resolveImageUrl('/hero/bg.webp')})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
