@@ -54,9 +54,7 @@ export function Nav() {
 
           {/* Desktop nav — hidden on mobile */}
           <nav className="hidden md:flex items-center gap-8">
-            {links.map((l) => {
-              const isActive = pathname.startsWith(l.to)
-              return (
+            {links.map((l) => (
                 <Link
                   key={l.to}
                   to={l.to}
@@ -65,8 +63,7 @@ export function Nav() {
                 >
                   {l.label}
                 </Link>
-              )
-            })}
+            ))}
           </nav>
 
           {/* Placeholder — keeps logo left-aligned on mobile (button is extracted below) */}
