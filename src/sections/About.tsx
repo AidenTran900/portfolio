@@ -1,5 +1,6 @@
 import { motion, type Variants } from 'framer-motion'
 import { profile } from '@/data/profile'
+import { resolveImageUrl } from '@/utils/imageUrl'
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 14 },
@@ -14,12 +15,6 @@ const fadeUp: Variants = {
   }),
 }
 
-const principles = [
-  { n: '01', t: 'Close to the metal', d: 'Hand-tuned C++, custom kernels, real profilers.' },
-  { n: '02', t: 'Ship what runs', d: 'Frames per second over framework debates.' },
-  { n: '03', t: 'Systems over tricks', d: 'Architecture that survives the next feature.' },
-  { n: '04', t: 'Polish counts', d: 'Interactions, motion, and detail as functional craft.' },
-]
 
 const nowFocus = [
   'Custom ML kernels in C++ / CUDA',
@@ -89,7 +84,7 @@ export function About() {
             <div
               data-cursor="Self Reflection · 2025"
               className="w-full aspect-[4/5] bg-cover bg-center"
-              style={{ backgroundImage: "url('images/gallery/SelfReflection.png')" }}
+              style={{ backgroundImage: `url('${resolveImageUrl('/images/gallery/SelfReflection.webp')}')` }}
               aria-hidden
             />
             <figcaption className="mt-3 flex items-baseline justify-between gap-4 border-t border-[var(--color-ink)] pt-2">

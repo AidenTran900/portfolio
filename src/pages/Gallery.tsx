@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { artworks, type Artwork } from '@/data/gallery'
+import { resolveImageUrl } from '@/utils/imageUrl'
 import { FilterSidebar } from '@/components/FilterSidebar'
 
 const galleryTags = [...new Set(artworks.map((a) => a.medium))].sort()
@@ -26,7 +27,7 @@ function ArtworkCard({ artwork, index, onClick }: { artwork: Artwork; index: num
       aria-label={`View ${artwork.title}`}
     >
       <img
-        src={artwork.image}
+        src={resolveImageUrl(artwork.image)}
         alt={artwork.title}
         className="w-full block"
         loading="lazy"
@@ -74,7 +75,7 @@ function Lightbox({ artwork, onClose }: { artwork: Artwork; onClose: () => void 
       >
         <div className="flex-1 min-w-0 flex items-center justify-center overflow-hidden">
           <img
-            src={artwork.image}
+            src={resolveImageUrl(artwork.image)}
             alt={artwork.title}
             className="max-h-[70vh] max-w-full object-contain"
           />

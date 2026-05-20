@@ -14,7 +14,7 @@ export type Artwork = {
   medium: ArtworkMedium
   dimensions?: string
   description: string
-  // Path relative to /public — e.g. /images/gallery/my-piece.png
+  // Path relative to /public — e.g. /images/gallery/my-piece.webp
   image: string
 }
 
@@ -26,7 +26,7 @@ export const artworks: Artwork[] = [
     medium: 'Digital',
     description:
       'Placeholder description. Replace with your own notes about the piece — inspiration, process, materials, or anything the viewer should know.',
-    image: '/images/gallery/SelfReflection.png',
+    image: '/images/gallery/SelfReflection.webp',
   },
   {
     id: 'adelie',
@@ -34,7 +34,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Adelie.png',
+    image: '/images/gallery/Adelie.webp',
   },
   {
     id: 'binder-cover',
@@ -42,7 +42,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/BinderCover.png',
+    image: '/images/gallery/BinderCover.webp',
   },
   {
     id: 'bird',
@@ -50,7 +50,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Bird.png',
+    image: '/images/gallery/Bird.webp',
   },
   {
     id: 'cat',
@@ -58,7 +58,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Cat.png',
+    image: '/images/gallery/Cat.webp',
   },
   {
     id: 'self-portrait-old',
@@ -66,7 +66,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/SelfPortraitOld.png',
+    image: '/images/gallery/SelfPortraitOld.webp',
   },
   {
     id: 'sketch-1',
@@ -74,7 +74,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Sketch1.png',
+    image: '/images/gallery/Sketch1.webp',
   },
   {
     id: 'sketch-2',
@@ -82,7 +82,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Sketch2.png',
+    image: '/images/gallery/Sketch2.webp',
   },
   {
     id: 'sketch-3',
@@ -90,7 +90,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Sketch3.png',
+    image: '/images/gallery/Sketch3.webp',
   },
   {
     id: 'sketch-4',
@@ -98,7 +98,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Sketch4.png',
+    image: '/images/gallery/Sketch4.webp',
   },
   {
     id: 'ultrakill',
@@ -106,6 +106,6 @@ export const artworks: Artwork[] = [
     year: 2024,
     medium: 'Digital',
     description: 'Placeholder description.',
-    image: '/images/gallery/Ultrakill.png',
+    image: '/images/gallery/Ultrakill.webp',
   },
 ]
