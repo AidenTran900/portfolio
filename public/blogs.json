@@ -1,9 +1,0 @@
-[
-  {
-    "Name": "Rollback Netcode Implementation",
-    "Path": "/blogs/rollback_netcode.md",
-    "PathName": "rollback_netcode",
-    "Description": "Deep dive into implementing rollback netcode for real-time multiplayer games with deterministic simulation.",
-    "Tags": ["Networking", "Game Development", "Technical"]
-  }
-]

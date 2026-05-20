@@ -1,0 +1,401 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Monument Extended';
+  src: url('/fonts/MonumentExtended-Regular.ttf') format('truetype');
+  font-weight: 100 550;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Monument Extended';
+  src: url('/fonts/MonumentExtended-Ultrabold.ttf') format('truetype');
+  font-weight: 551 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Warm cream + dark ink editorial palette */
+  --color-cream: #f5f1ea;
+  --color-cream-light: #f9f6f0;
+  --color-cream-soft: #efeae0;
+  --color-paper: #fbf8f2;
+  --color-ink: #0e0d0b;
+  --color-ink-soft: #1f1d1a;
+  --color-muted: #6b6660;
+  --color-muted-strong: #3a3733;
+  --color-rule: #d9d3c5;
+  --color-rule-soft: #e8e2d3;
+
+  /* Swiss orange-red accent — terracotta, warm Müller-Brockmann poster tone */
+  --color-accent: #e25a2a;
+  --color-accent-strong: #c2461b;
+  --color-accent-soft: rgba(226, 90, 42, 0.08);
+
+  --font-display: 'Monument Extended', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader', ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --shadow-soft: 0 1px 0 rgba(14, 13, 11, 0.04), 0 8px 30px rgba(14, 13, 11, 0.06);
+  --shadow-card: 0 1px 0 rgba(14, 13, 11, 0.05), 0 20px 40px -20px rgba(14, 13, 11, 0.18);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    letter-spacing: 0.005em;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--color-ink);
+    letter-spacing: -0.005em;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2.5rem; }
+  }
+
+  .container-prose {
+    width: 100%;
+    max-width: 42rem; /* ~672px, Medium-style */
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--color-rule);
+    width: 100%;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    padding-bottom: 1px;
+    transition: background-size 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .link-underline:hover {
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+  }
+
+  /* Swiss CTA — rectangular, heavy, uppercase. The primary "you can click here"
+     affordance. No border-radius, no pill curves, generous padding. */
+  .btn-ink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+  .btn-ink:hover {
+    background: var(--color-accent);
+    color: var(--color-cream);
+  }
+  .btn-ink .arrow {
+    transition: transform 200ms ease;
+  }
+  .btn-ink:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Swiss secondary — outlined block. Same geometry, inverted weight. */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+    border: 1.5px solid var(--color-ink);
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .btn-ghost:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .btn-ghost .arrow {
+    transition: transform 200ms ease;
+  }
+  .btn-ghost:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Block CTA — full-width Swiss bar. For section-terminating actions like
+     "view all projects" or "next project" that should clearly invite the
+     scroll to continue somewhere. */
+  .btn-swiss-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1.5rem 1.75rem;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 200ms ease;
+  }
+  .btn-swiss-block:hover {
+    background: var(--color-accent);
+  }
+  .btn-swiss-block .arrow {
+    font-size: 1.5rem;
+    transition: transform 200ms ease;
+  }
+  .btn-swiss-block:hover .arrow {
+    transform: translateX(6px);
+  }
+}
+
+/* Sky-clipped text — fills letterforms with the hero sky photo so editorial
+   sections call back to the hero imagery. */
+.text-sky-clip {
+  background-image: url('/hero/bg.jpg');
+  background-size: 140% auto;
+  background-position: center 35%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Outlined display type — mirrors the hero's stroked AIDEN TRAN. */
+.text-stroke-ink {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-ink);
+  paint-order: stroke fill;
+}
+@media (min-width: 768px) {
+  .text-stroke-ink { -webkit-text-stroke: 3.5px var(--color-ink); }
+}
+
+/* Cloud bleed — a band of the hero sky that fades into cream. Sits at the top
+   of editorial sections to bridge the hard photo→flat transition. */
+.cloud-bleed {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 320px;
+  background-image: url('/hero/bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Blog markdown prose — Swiss sans-serif body, no serif mixing */
+.prose-blog {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--color-ink-soft);
+}
+.prose-blog > * + * {
+  margin-top: 1.25em;
+}
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3,
+.prose-blog h4 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-top: 2.2em;
+  margin-bottom: 0.4em;
+}
+.prose-blog h1 { font-size: 2rem; }
+.prose-blog h2 { font-size: 1.6rem; }
+.prose-blog h3 { font-size: 1.25rem; }
+.prose-blog h4 { font-size: 1.1rem; }
+.prose-blog p {
+  margin: 0;
+}
+.prose-blog strong { color: var(--color-ink); font-weight: 600; }
+.prose-blog em { font-style: italic; }
+.prose-blog a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.prose-blog a:hover { color: var(--color-accent-strong); }
+.prose-blog blockquote {
+  border-left: 2px solid var(--color-ink);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--color-muted-strong);
+  margin: 1.5em 0;
+}
+.prose-blog ul,
+.prose-blog ol {
+  padding-left: 1.5rem;
+}
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li { margin-top: 0.4em; }
+.prose-blog li > p { display: inline; }
+.prose-blog code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-paper);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--color-rule-soft);
+}
+.prose-blog pre {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  padding: 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.prose-blog pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+.prose-blog hr {
+  border: none;
+  height: 1px;
+  background: var(--color-rule);
+  margin: 2.5em 0;
+}
+.prose-blog img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em auto;
+  border-radius: 6px;
+}
+.prose-blog table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+.prose-blog th,
+.prose-blog td {
+  border-bottom: 1px solid var(--color-rule);
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+.prose-blog th { font-weight: 600; color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Defeats framer-motion's hardcoded layoutId opacity crossfade. Inline-style
+   opacity set by framer's projection layer is overridden by this rule, so
+   shared elements stay fully opaque through the morph. */
+.morph-opaque,
+.morph-opaque * {
+  opacity: 1 !important;
+}

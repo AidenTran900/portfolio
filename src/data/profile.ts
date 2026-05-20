@@ -1,0 +1,20 @@
+export const profile = {
+  name: 'Aiden Tran',
+  role: 'Developer & Systems Engineer',
+  tagline: 'Building efficient, interactive software systems.',
+  location: 'Berkeley, CA',
+  school: 'UC Berkeley',
+  age: 19,
+  yearsExperience: '6+',
+  email: 'aiden@aidentran.dev',
+  github: 'https://github.com/AidenTran900',
+  linkedin: 'https://www.linkedin.com/in/aidentran900/',
+  about: [
+    "I'm an 18 year old developer with 5+ years of experience building software systems, machine learning libraries, and games — currently studying at UC Berkeley.",
+    "I work close to the metal when it matters (C++ FFT, custom ML kernels) and ship polished interactive experiences when that matters more (rollback netcode, real-time simulations).",
+    "Right now I'm looking for software engineering internships where I can work on systems with real depth — performance, simulation, infra, or graphics.",
+  ],
+  lookingFor: 'Software engineering internships — systems, simulation, ML infra, or graphics.',
+  languages: ['C++', 'Python', 'Java', 'Lua', 'C#', 'TypeScript'],
+  technologies: ['React', 'Node.js', 'Next.js', 'Unity', 'PostgreSQL', 'Git'],
+}

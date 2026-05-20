@@ -1,123 +1,130 @@
-import React, { useEffect, useRef, useMemo, memo } from "react";
-import CaptionIcon from "@components/CaptionIcon.tsx";
-import "@styles/Components/ProjectCard.css";
-import { VideoComponent } from "@components/Video.tsx"
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import type { Project } from '@/data/projects'
 
-interface ProjectCardProps {
-  title: string;
-  videoSrc?: string;
-  videoCDN?: string;
-  createdDate: number;
-  description: string;
-  languages: { text: string; imagePath?: string }[];
-  url?: string;
-}
+const ioOptions: IntersectionObserverInit = { threshold: 0.25, rootMargin: '120px' }
 
-// Shared IntersectionObserver instance for all video elements
-let videoObserver: IntersectionObserver | null = null;
+const sharedSpring = { type: 'spring' as const, stiffness: 230, damping: 30, mass: 0.9 }
 
-const getVideoObserver = () => {
-  if (!videoObserver) {
-    videoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target as HTMLVideoElement;
-          if (entry.isIntersecting) {
-            if (!video.src && video.dataset.videoSrc) {
-              video.src = video.dataset.videoSrc;
-            }
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '50px'
-      }
-    );
-  }
-  return videoObserver;
-};
+export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const cardRef = useRef<HTMLAnchorElement>(null)
+  const [inView, setInView] = useState(false)
 
-const ProjectCard: React.FC<ProjectCardProps> = memo(({
-  title,
-  videoSrc,
-  videoCDN,
-  languages,
-  createdDate,
-  description,
-  url,
-}) => {
-  const finalVideoSrc = useMemo(() => {
-    const isProduction = window.location.hostname !== "localhost";
-    return isProduction
-      ? videoCDN || videoSrc || ""
-      : videoSrc || videoCDN || "";
-  }, [videoSrc, videoCDN]);
-
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoSrc =
+    typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+      ? project.videoCDN || project.videoSrc
+      : project.videoSrc || project.videoCDN
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !finalVideoSrc) return;
+    if (!cardRef.current) return
+    const obs = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting)
+    }, ioOptions)
+    obs.observe(cardRef.current)
+    return () => obs.disconnect()
+  }, [])
 
-    video.dataset.videoSrc = finalVideoSrc;
-    const observer = getVideoObserver();
-    observer.observe(video);
-
-    return () => {
-      observer.unobserve(video);
-    };
-  }, [finalVideoSrc]);
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v || !videoSrc) return
+    if (inView) {
+      if (!v.src) v.src = videoSrc
+      v.play().catch(() => {})
+    } else {
+      v.pause()
+    }
+  }, [inView, videoSrc])
 
   return (
-    <div className="projectCard bevelContainer">
-      {finalVideoSrc ? (
-        <div className="projectCardVideoWrapper">
-          <VideoComponent
-            ref={videoRef}
-            preload="metadata"
-            loop
-            muted
-            playsInline
-            className="projectCardVideo"
-          />
-        </div>
-      ) : (
-        <div className="projectCardPlaceholder">No Video Available</div>
-      )}
-
-      <h1 className="projectCardTitle">
-        {title} <span className="projectCard-date">({createdDate})</span>
-      </h1>
-      <div className="projectCardSectionDivider" />
-      <p className="projectCardDescription">{description}</p>
-      <div className="projectCardSectionDivider" />
-      <h2 className="projectCardSectionTitle">Languages/Frameworks</h2>
-      <ul className="projectCardList">
-        {languages.map((lang) => (
-          <CaptionIcon
-            key={lang.text}
-            text={lang.text}
-            imagePath={lang.imagePath ?? ""}
-            layout="row"
-          />
-        ))}
-      </ul>
-      {url && (
-        <button 
-          className="projectCardButton"
-          onClick={() => window.open(url, '_blank')}
+    <motion.div
+      initial={{ opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, delay: (index % 2) * 0.08, ease: [0.215, 0.61, 0.355, 1] }}
+    >
+      <Link
+        ref={cardRef}
+        to={`/work/${project.slug}`}
+        data-cursor="View case →"
+        className="group block"
+      >
+        {/* Media — shared element */}
+        <motion.div
+          layoutId={`project-media-${project.slug}`}
+          transition={sharedSpring}
+          style={{ borderRadius: 6 }}
+          className="morph-opaque relative overflow-hidden bg-[var(--color-cream-soft)] aspect-[16/10] border border-[var(--color-rule)] transition-colors duration-300 group-hover:border-[var(--color-ink)] will-change-transform"
         >
-          View Project
-        </button>
-      )}
-    </div>
-  );
-});
+          {videoSrc ? (
+            <video
+              ref={videoRef}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-display text-6xl md:text-8xl font-semibold text-[var(--color-rule)] tracking-tight">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-transparent group-hover:bg-[rgba(14,13,11,0.04)] transition-colors duration-500" />
+        </motion.div>
 
-ProjectCard.displayName = 'ProjectCard';
+        {/* Meta — Swiss index rail above title */}
+        <div className="mt-5 flex items-baseline justify-between border-t border-[var(--color-ink)] pt-3">
+          <span className="font-mono text-xs tracking-widest text-[var(--color-ink)]">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span className="font-display text-xs font-medium tracking-[0.18em] uppercase text-[var(--color-muted)]">
+            {project.year}
+          </span>
+        </div>
 
-export default ProjectCard;
+        <div className="mt-3 flex items-start justify-between gap-6">
+          <div className="min-w-0">
+            <motion.h3
+              layoutId={`project-title-${project.slug}`}
+              layout="preserve-aspect"
+              transition={sharedSpring}
+              className="morph-opaque font-display text-2xl md:text-3xl font-medium tracking-tight transition-colors duration-300 group-hover:text-[var(--color-accent)]"
+            >
+              {project.title}
+            </motion.h3>
+            <motion.p
+              layoutId={`project-problem-${project.slug}`}
+              layout="preserve-aspect"
+              transition={sharedSpring}
+              className="morph-opaque mt-2 text-[var(--color-muted-strong)] text-base leading-relaxed max-w-md"
+            >
+              {project.problem}
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Stack tags + view affordance */}
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            {project.stack.map((s) => (
+              <span
+                key={s}
+                className="font-display text-xs font-medium tracking-[0.12em] uppercase text-[var(--color-muted)]"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+          <span className="font-display text-xs font-semibold tracking-[0.18em] uppercase text-[var(--color-muted)] shrink-0 inline-flex items-center gap-2 transition-colors group-hover:text-[var(--color-ink)]">
+            View case
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        </div>
+      </Link>
+    </motion.div>
+  )
+}
