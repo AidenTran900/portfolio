@@ -132,7 +132,7 @@ export const projects: Project[] = [
     type: 'Simulation · Scientific',
     stack: ['Python', 'Matplotlib', 'Pandas'],
     url: 'https://github.com/AidenTran900/Black-Hole-Analyzer',
-    videoCDN: 'https://assets.aidentran.dev/Videos/BlackHoleAnalyzer.v1.webm',
+    videoCDN: 'https://assets.aidentran.dev/Videos/BlackHoleAnalyzer.v1.mp4',
     featured: true,
     highlights: [
       'Schwarzschild metric for time dilation',

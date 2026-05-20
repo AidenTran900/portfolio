@@ -399,3 +399,21 @@
 .morph-opaque * {
   opacity: 1 !important;
 }
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-rule) 0%,
+    var(--color-rule-soft) 40%,
+    var(--color-cream-soft) 50%,
+    var(--color-rule-soft) 60%,
+    var(--color-rule) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}

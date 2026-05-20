@@ -11,6 +11,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const videoRef = useRef<HTMLVideoElement>(null)
   const cardRef = useRef<HTMLAnchorElement>(null)
   const [inView, setInView] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
 
   const videoSrc =
     typeof window !== 'undefined' && window.location.hostname !== 'localhost'
@@ -58,14 +59,20 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           className="morph-opaque relative overflow-hidden bg-[var(--color-cream-soft)] aspect-[16/10] border border-[var(--color-rule)] transition-colors duration-300 group-hover:border-[var(--color-ink)] will-change-transform"
         >
           {videoSrc ? (
-            <video
-              ref={videoRef}
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-            />
+            <>
+              {!videoReady && (
+                <div className="absolute inset-0 skeleton-shimmer z-10" aria-hidden="true" />
+              )}
+              <video
+                ref={videoRef}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                onCanPlay={() => setVideoReady(true)}
+                className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-[1.025] ${videoReady ? 'opacity-100' : 'opacity-0'}`}
+              />
+            </>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-display text-6xl md:text-8xl font-semibold text-[var(--color-rule)] tracking-tight">

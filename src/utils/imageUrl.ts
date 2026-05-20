@@ -7,11 +7,12 @@ export function resolveImageUrl(localPath: string): string {
       return `${CDN_BASE}/Artwork/${filename}`
     }
     if (localPath === '/hero/bg.webp') {
-      return `${CDN_BASE}/bg.webp`
+      return `${CDN_BASE}/bg.v1.webp`
     }
     return `${CDN_BASE}${localPath}`
   }
-  return localPath
+  // Dev: strip version tag (e.g. .v1) so paths match local /public filenames
+  return localPath.replace(/\.v\d+(\.\w+)$/, '$1')
 }
 
 export function resolveVideoUrl(filename: string): string {

@@ -16,33 +16,49 @@ function CloseIcon() {
 }
 
 function ArtworkCard({ artwork, index, onClick }: { artwork: Artwork; index: number; onClick: () => void }) {
+  const [loaded, setLoaded] = useState(false)
+
   return (
     <motion.button
       onClick={onClick}
-      className="break-inside-avoid block w-full group cursor-pointer relative overflow-hidden text-left mb-4"
+      className="break-inside-avoid block w-full group cursor-pointer text-left mb-4"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.45, delay: index * 0.05, ease: [0.215, 0.61, 0.355, 1] }}
       aria-label={`View ${artwork.title}`}
     >
-      <img
-        src={resolveImageUrl(artwork.image)}
-        alt={artwork.title}
-        className="w-full block"
-        loading="lazy"
-      />
       <div
-        className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-        style={{ background: 'rgba(14,13,11,0.72)' }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1 transition-all duration-300 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-        <span className="font-display text-xs font-medium tracking-[0.18em] uppercase text-[var(--color-muted)]">
-          {artwork.medium} · {artwork.year}
-        </span>
-        <span className="font-display text-sm uppercase tracking-widest text-[var(--color-cream)]">
-          {artwork.title}
-        </span>
+        className="relative overflow-hidden"
+        style={!loaded ? { paddingBottom: '75%' } : undefined}
+      >
+        {!loaded && (
+          <div className="absolute inset-0 skeleton-shimmer" aria-hidden="true" />
+        )}
+        <img
+          src={resolveImageUrl(artwork.image)}
+          alt={artwork.title}
+          className={`transition-opacity duration-500 ${
+            loaded
+              ? 'w-full block opacity-100'
+              : 'absolute inset-0 w-full h-full object-cover opacity-0'
+          }`}
+          loading="lazy"
+          fetchPriority={index < 3 ? 'high' : 'auto'}
+          onLoad={() => setLoaded(true)}
+        />
+        <div
+          className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+          style={{ background: 'rgba(14,13,11,0.72)' }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1 transition-all duration-300 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+          <span className="font-display text-xs font-medium tracking-[0.18em] uppercase text-[var(--color-muted)]">
+            {artwork.medium} · {artwork.year}
+          </span>
+          <span className="font-display text-sm uppercase tracking-widest text-[var(--color-cream)]">
+            {artwork.title}
+          </span>
+        </div>
       </div>
     </motion.button>
   )

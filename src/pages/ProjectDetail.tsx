@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
@@ -10,6 +10,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate()
   const { slug } = useParams<{ slug: string }>()
   const project = useMemo(() => projects.find((p) => p.slug === slug), [slug])
+  const [videoReady, setVideoReady] = useState(false)
 
   if (!project) {
     return (
@@ -138,6 +139,9 @@ export default function ProjectDetail() {
             style={{ borderRadius: 6, position: 'relative', zIndex: 50 }}
             className="morph-opaque mx-auto max-w-4xl overflow-hidden border border-[var(--color-rule)] bg-[var(--color-cream-soft)] aspect-[16/10] will-change-transform"
           >
+            {!videoReady && (
+              <div className="absolute inset-0 skeleton-shimmer z-10" aria-hidden="true" />
+            )}
             <video
               key={videoSrc}
               src={videoSrc}
@@ -146,7 +150,8 @@ export default function ProjectDetail() {
               playsInline
               autoPlay
               preload="auto"
-              className="w-full h-full object-cover"
+              onCanPlay={() => setVideoReady(true)}
+              className={`w-full h-full object-cover transition-opacity duration-500 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
             />
           </motion.div>
         </div>
