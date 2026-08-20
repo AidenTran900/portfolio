@@ -1,0 +1,36 @@
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 47px;
+  padding: 0 20px;
+  border: 1.6px solid var(--text);
+  font-family: var(--font-button);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--text);
+  white-space: nowrap;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.link-button:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.link-button--small {
+  height: 32px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+
+.link-button__arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s;
+}
+
+.link-button:hover .link-button__arrow {
+  transform: translateX(3px);
+}

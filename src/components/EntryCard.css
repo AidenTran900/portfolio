@@ -1,0 +1,37 @@
+.entry-card {
+  position: relative;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  padding: 12px 20px 16px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entry-card__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.entry-card__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.entry-card__meta {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.entry-card__description {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text);
+}

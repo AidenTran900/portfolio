@@ -1,0 +1,34 @@
+.title-block {
+  border-bottom: 1px solid var(--border);
+  padding: 60px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fade-in-up 0.5s ease both;
+}
+
+.title-block__title {
+  font-size: 72px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.title-block__subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+@media (max-width: 1023px) {
+  .title-block {
+    padding: 40px 20px 24px;
+  }
+
+  .title-block__title {
+    font-size: 44px;
+  }
+
+  .title-block__subtitle {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,14 @@
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  animation: fade-in-up 0.5s ease both;
+}
+
+.footer__inner {
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+}

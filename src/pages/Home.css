@@ -1,0 +1,65 @@
+.home {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  animation: fade-in-up 0.6s ease both;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(260px, 1fr);
+  grid-template-areas:
+    'hero hero'
+    'bio contact'
+    'work tech'
+    'posts posts'
+    'projects projects';
+  column-gap: 40px;
+  row-gap: 40px;
+}
+
+.home-grid > .hero {
+  grid-area: hero;
+}
+
+.home-grid > .bio-block {
+  grid-area: bio;
+  align-self: start;
+}
+
+.home-grid > .contact-row {
+  grid-area: contact;
+  align-self: start;
+}
+
+.home-grid > .work-education {
+  grid-area: work;
+  margin-top: 60px;
+}
+
+.home-grid > .tech-panel {
+  grid-area: tech;
+  margin-top: 60px;
+}
+
+.home-grid > .recent-posts {
+  grid-area: posts;
+}
+
+.home-grid > .featured-projects {
+  grid-area: projects;
+}
+
+@media (max-width: 1023px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'hero'
+      'bio'
+      'contact'
+      'work'
+      'tech'
+      'posts'
+      'projects';
+    row-gap: 32px;
+  }
+}

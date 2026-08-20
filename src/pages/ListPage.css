@@ -1,0 +1,74 @@
+.list-page {
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+.list-page__content {
+  position: relative;
+  z-index: 1;
+}
+
+.list-page__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.list-page__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 60px 0;
+}
+
+.list-page__grid > *,
+.list-page__stack > * {
+  opacity: 0;
+  animation: fade-in 0.5s ease both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.list-page__grid > *:nth-child(1),
+.list-page__stack > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.list-page__grid > *:nth-child(2),
+.list-page__stack > *:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.list-page__grid > *:nth-child(3),
+.list-page__stack > *:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.list-page__grid > *:nth-child(4),
+.list-page__stack > *:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.list-page__grid > *:nth-child(5),
+.list-page__stack > *:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.list-page__grid > *:nth-child(n + 6),
+.list-page__stack > *:nth-child(n + 6) {
+  animation-delay: 0.3s;
+}
+
+@media (max-width: 1023px) {
+  .list-page__grid {
+    grid-template-columns: 1fr;
+    padding: 32px 0;
+  }
+
+  .list-page__stack {
+    padding: 32px 0;
+  }
+}

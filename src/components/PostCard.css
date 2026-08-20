@@ -1,0 +1,63 @@
+.post-card {
+  position: relative;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  outline: 1px solid transparent;
+  transition: outline-color 0.25s ease;
+}
+
+.post-card:hover {
+  outline-color: var(--text-dim);
+}
+
+.post-card--compact {
+  padding: 12px 20px 16px 20px;
+}
+
+.post-card--full {
+  padding: 20px 32px 24px 32px;
+}
+
+.post-card__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.post-card__title {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.post-card--compact .post-card__title {
+  font-size: 24px;
+}
+
+.post-card--full .post-card__title {
+  font-size: 36px;
+}
+
+.post-card__date {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.post-card__description {
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.post-card--compact .post-card__description {
+  font-size: 16px;
+}
+
+.post-card--full .post-card__description {
+  font-size: 20px;
+}

@@ -1,0 +1,30 @@
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+  animation: fade-in-up 0.5s ease both;
+}
+
+.back-button:hover {
+  color: var(--text);
+}
+
+.back-button__arrow {
+  width: 10px;
+  height: 10px;
+  transform: scaleX(-1);
+  transition: transform 0.2s;
+}
+
+.back-button:hover .back-button__arrow {
+  transform: scaleX(-1) translateX(3px);
+}

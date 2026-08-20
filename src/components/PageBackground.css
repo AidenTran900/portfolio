@@ -1,0 +1,21 @@
+.page-background {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--content-width) + 500px);
+  z-index: 0;
+  pointer-events: none;
+  opacity:0.2;
+}
+
+.page-background img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1023px) {
+  .page-background {
+    display: none;
+  }
+}

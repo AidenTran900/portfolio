@@ -1,0 +1,57 @@
+.work-education {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+}
+
+.work-education__tabs {
+  display: flex;
+}
+
+.work-education__tabs button:first-child {
+  flex: 340 1 0;
+}
+
+.work-education__tabs button:last-child {
+  flex: 281 1 0;
+}
+
+.work-education__tab {
+  padding: 0px 0;
+  font-family: inherit;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  transition: color 0.2s, background 0.2s, outline-color 0.2s;
+}
+
+.work-education__tab:not(.work-education__tab--active):hover {
+  color: var(--text-muted);
+  outline-color: var(--text-dim);
+}
+
+.work-education__tab--active {
+  color: var(--text);
+  background: #4b4b4b;
+}
+
+.work-education__panel {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 374px;
+  animation: fade-in-up 0.35s ease both;
+}
+
+@media (max-width: 1023px) {
+  .work-education__tab {
+    font-size: 22px;
+  }
+}
