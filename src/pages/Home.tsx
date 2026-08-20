@@ -1,4 +1,4 @@
-import { PageBackground } from '../components/PageBackground'
+// import { PageBackground } from '../components/PageBackground'
 import { BioBlock } from '../components/BioBlock'
 import { ContactRow } from '../components/ContactRow'
 import { TechPanel } from '../components/TechPanel'

@@ -1,4 +1,4 @@
-import { PageBackground } from '../components/PageBackground'
+// import { PageBackground } from '../components/PageBackground'
 import { TitleBlock } from '../components/TitleBlock'
 import { PostCard } from '../components/PostCard'
 import { recentBlogs } from '../data/blogs'
