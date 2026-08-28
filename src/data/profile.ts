@@ -7,7 +7,7 @@ export const profile = {
   name: 'Aiden Tran',
   role: 'Software Engineer',
   bioLine1: "I'm a Computer Science student at UC Berkeley.",
-  bioLine2: 'I specialize in full-stack and machine learning. I do game dev and computer graphics on the side.',
+  bioLine2: "I'm interested in full-stack and machine learning. I do game dev on the side.",
   location: 'Berkeley, CA',
   resumeUrl: '/resume.pdf',
   github: 'https://github.com/AidenTran900',

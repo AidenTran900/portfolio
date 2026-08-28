@@ -104,10 +104,42 @@
 }
 
 .markdown img {
+  display: inline-block;
+  vertical-align: top;
   width: 100%;
+  max-width: 100%;
   height: auto;
-  margin: 24px 0;
+  margin: 24px 16px 24px 0;
   border: 1px solid var(--border);
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+}
+
+.markdown img:hover {
+  opacity: 0.85;
+}
+
+.markdown-lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: zoom-out;
+  z-index: 1000;
+}
+
+.markdown-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border: none;
+  margin: 0;
+  cursor: zoom-out;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
 }
 
 .markdown table {
