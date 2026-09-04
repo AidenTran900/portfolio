@@ -1,5 +1,6 @@
 # About
 ChromaClash is a 2.5d fighting game (like Street Fighter) made in Roblox/Luau. It features 3 characters with unique movesets and functioning rollback netcode.
+This is mainly a solo project, though my friend [(Visit his website!)](https://www.timeworn.net/) helped me with datastore and React-Lua work.
 
 # Why?
 I was fascinated at the complexity of fighting games, as well as the systems behind them.
