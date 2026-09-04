@@ -1,5 +1,8 @@
 # About
-This is an ML library I made with various classical models as well as a loaded pretrained language model. This is not meant to compete with Pytorch or Tensorflow. It is for learning purposes.
+A C++ machine learning library built from the ground up implementing various ML algorithms and models. The whole point of this is for me to better understand machine learning at a lower level.
+
+**Disclaimer:** I am not going to pretend like I did everything myself. AI was used in the creation of CUDA code, GGUF/LLama loaders, python bindings, and template metaprogramming. **I did this because my main focus was implementation of ML models.** In the future I will definitely learn more CUDA.
+
 
 ## Models include:
 - Linear regression
@@ -16,7 +19,7 @@ This is an ML library I made with various classical models as well as a loaded p
 
 
 # Why?
-I had little experience with machine learning. I wanted something to make that would help me understand the foundations in a progressive way.
+I had little experience with machine learning. I wanted something to make that would help me understand the foundations in a progressive, unabstracted way.
 
 
 # Code Architecture
@@ -40,46 +43,11 @@ There are two types of models:
     - fit / predict
     - Used by KNN, SVM, decision trees, random forests, and K means
 
-I decided not to template these because it would add extra compile time.
-
 ## Matrix<T>
 Everything in the library is a Matrix<T>. I represent these using a flat vector, so everything is contiguous (important for SIMD and general performance). operator()(i,j) indexes m_data[i * m_cols + j]. Is the class too large? Yes. Gaussian elminination, determinants, and inverses are unecessary but I did it for learning.
 
 ### Why not Tensors?
-I was just unaware. If I implemented this again I would definitely use tensors.
-
-# Llama Loading
-I used Llama 3.2-1B Instruct on a GGUF format. I did use some AI assistance for the implementation, though I have a general understanding of the process:
-
-1. Parse the GGUF container
-    - GGUFFile::load() reads all necessary metadata/data
-2. Dequantize
-    - loadTensor<T>() handles 7 encodings.
-    - More stuff here. Not sure
-3. Map weights onto architecture
-    - Metadata from the GGUF file is converted into a TransformerConfig
-    - More stuff ehre. Not sure
-4. Generation
-    - Transformer<T>::generate() is a standard autoregressive loop.
-    1. First phase is Prefill
-        1. Embedding layer converts prompt to semantic vectors
-        2. Initialize KV Cache.
-        3. Casual masking
-        4. Logits are extracted
-    2. Second phase is Decoding
-        1. Sampling converts vocabulary logits into a discrete token ID
-        2. Only the newest token is embedded
-        3. The KV Cache is then appended
-            - The layer computes a new Query, Key, and Value
-            - New Key and Values are appended to the existing cache
-            - The query Q attends to the entire history
-        4. Iteration stops if a stop token is emitted or limit is reached
-
-There are 3 forward methods on my AttentionLayer
-- forward() is for training and caches input, Q, K, V, and attention weights
-- forward_prefill() only fills KV cache
-- forward_cached() is for inference
-
+I was just unaware and did not generalize into higher dimensionality. If I implemented this again I would definitely implement tensors instead.
 
 # Biggest Accomplishment
 My biggest accomplishment was getting the language model to run at all.
@@ -88,7 +56,4 @@ My biggest accomplishment was getting the language model to run at all.
 Manual backpropogation was a really big pain to deal with. I have a greater appreciation for autograd now.
 
 ## Takeaways
-This project helped me with:
-- Learning general machine learning concepts
-- Practicing low level programming work
-
+This project helped me understand the inner workings of systems and components in machine learning, as well as their relationships with each other. I learned how to take a simple Matrix implementation and expand it into a vast library. While this project taught me a lot, *it is also very reductionist*. I will learn and practice using/evaluating these models in future work.
