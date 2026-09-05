@@ -7,6 +7,7 @@ import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
 import Posts from './pages/Posts'
 import PostDetail from './pages/PostDetail'
+import Artwork from './pages/Artwork'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:slug" element={<PostDetail />} />
+          <Route path="/artwork" element={<Artwork />} />
         </Routes>
       </main>
       <Footer />

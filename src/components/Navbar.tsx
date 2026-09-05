@@ -5,6 +5,7 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/projects', label: 'Projects' },
   { to: '/posts', label: 'Posts' },
+  { to: '/artwork', label: 'Art' },
 ]
 
 export function Navbar() {

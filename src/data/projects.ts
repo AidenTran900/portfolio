@@ -96,14 +96,14 @@ export const projects: Project[] = [
   //   video: 'https://assets.aidentran.dev/Videos/ThoseWhoChop.v1.webm',
   //   role: 'Solo build',
   // },
-  // {
-  //   slug: 'forums',
-  //   title: 'Forums',
-  //   year: 2025,
-  //   description: 'A full-stack forum website built from scratch: PostgreSQL-backed threads, real-time-ish discussion, clean responsive UI.',
-  //   stack: ['React', 'TypeScript', 'PostgreSQL'],
-  //   role: 'Co-builder',
-  // },
+  {
+    slug: 'forums',
+    title: 'Forums',
+    year: 2025,
+    description: 'A full-stack forum website built from scratch.',
+    stack: ['React', 'TypeScript', 'PostgreSQL'],
+    role: 'Co-builder',
+  },
 ]
 
 export const featuredProjects = projects.filter((project) => project.featured)
